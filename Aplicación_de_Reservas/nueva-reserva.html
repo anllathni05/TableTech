@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TableTech - Nueva Reserva</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">🍽️</div>
+        <div>
+          <h1>TableTech <span class="badge">Sistemas v1.0</span></h1>
+          <p>Gestión Centralizada de Reservas y Control de Mesas</p>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html" class="nav-link">📅 Calendario y Ocupación</a>
+        <a href="nueva-reserva.html" class="nav-link active">➕ Nueva Reserva</a>
+        <a href="mapa-mesas.html" class="nav-link">🪑 Mapa de Mesas</a>
+        <div class="user-info" id="user-display"></div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="card form-container">
+      <div class="card-header">
+        <div>
+          <h2 class="card-title">➕ Registrar Nueva Reserva</h2>
+          <p class="card-subtitle">Ingresa los datos para apartar una mesa sin generar solapamiento de horarios</p>
+        </div>
+      </div>
+
+      <form id="new-reservation-form">
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label>Nombre del Cliente *</label>
+            <input type="text" id="res-name" class="form-control" placeholder="Ej. Juan Pérez" required>
+          </div>
+          <div class="form-group">
+            <label>Teléfono de Contacto *</label>
+            <input type="tel" id="res-phone" class="form-control" placeholder="Ej. 912345678" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Correo Electrónico (Opcional)</label>
+          <input type="email" id="res-email" class="form-control" placeholder="ejemplo@correo.com">
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>Fecha de Reserva</label>
+            <input type="date" id="res-date" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>Hora de Inicio</label>
+            <select id="res-time" class="form-control">
+              <option value="12:00">12:00 hrs</option>
+              <option value="12:30">12:30 hrs</option>
+              <option value="13:00" selected>13:00 hrs</option>
+              <option value="13:30">13:30 hrs</option>
+              <option value="14:00">14:00 hrs</option>
+              <option value="14:30">14:30 hrs</option>
+              <option value="15:00">15:00 hrs</option>
+              <option value="19:00">19:00 hrs</option>
+              <option value="19:30">19:30 hrs</option>
+              <option value="20:00">20:00 hrs</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>N° de Personas</label>
+            <input type="number" id="res-guests" class="form-control" min="1" max="12" value="2" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Seleccionar Mesa Disponible</label>
+          <input type="hidden" id="selected-table-id">
+          <div id="table-picker-container" class="table-selection-grid"></div>
+        </div>
+
+        <div class="form-group">
+          <label>Observaciones / Solicitudes Especiales</label>
+          <textarea id="res-notes" class="form-control" rows="2" placeholder="Ej. Cumpleaños, silla de bebé..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Confirmar Reserva</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    Escuela de Tecnología - Proyecto Web de Gestión de Reservas | HTML, CSS y JS
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/reservations.js"></script>
+</body>
+</html>

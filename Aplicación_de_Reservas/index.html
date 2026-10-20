@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TableTech - Matriz de Ocupación</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">🍽️</div>
+        <div>
+          <h1>TableTech <span class="badge">Sistemas v1.0</span></h1>
+          <p>Gestión Centralizada de Reservas y Control de Mesas</p>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html" class="nav-link active">📅 Calendario y Ocupación</a>
+        <a href="nueva-reserva.html" class="nav-link">➕ Nueva Reserva</a>
+        <a href="mapa-mesas.html" class="nav-link">🪑 Mapa de Mesas</a>
+        <div class="user-info" id="user-display"></div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <div class="date-picker-group">
+        <label><b>Fecha Seleccionada:</b></label>
+        <input type="date" id="selected-date">
+      </div>
+      <div class="stats-group">
+        <span class="stat-badge stat-emerald">Reservas Hoy: <b id="stat-count">0</b></span>
+        <span class="stat-badge stat-amber">Capacidad Libre: <b id="stat-free">0</b> Mesas</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h2 class="card-title">🕒 Matriz de Ocupación por Horarios</h2>
+          <p class="card-subtitle">Control de duplicación de turnos y disponibilidad en tiempo real</p>
+        </div>
+        <div class="filters-group">
+          <input type="text" id="search-query" placeholder="Buscar cliente..." class="input-search" oninput="renderMatrix()">
+          <select id="filter-table" class="select-filter" onchange="renderMatrix()">
+            <option value="all">Todas las mesas</option>
+            <option value="1">Mesa 1</option>
+            <option value="2">Mesa 2</option>
+            <option value="3">Mesa 3</option>
+            <option value="4">Mesa 4</option>
+            <option value="5">Mesa 5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-container">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>Mesa</th>
+              <th>Zona</th>
+              <th>Cap.</th>
+              <th>12:00</th><th>12:30</th><th>13:00</th><th>13:30</th><th>14:00</th><th>14:30</th><th>15:00</th>
+              <th>19:00</th><th>19:30</th><th>20:00</th><th>20:30</th><th>21:00</th><th>21:30</th><th>22:00</th>
+            </tr>
+          </thead>
+          <tbody id="matrix-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title" style="margin-bottom: 1rem;">👥 Listado Detallado de Reservas del Día</h3>
+      <div id="reservations-list" class="reservations-grid"></div>
+    </div>
+  </main>
+
+  <footer>
+    Escuela de Tecnología - Proyecto Web de Gestión de Reservas | HTML, CSS y JS
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script src="js/reservations.js"></script>
+</body>
+</html>

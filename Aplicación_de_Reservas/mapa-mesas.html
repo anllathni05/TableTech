@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TableTech - Mapa de Mesas</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">🍽️</div>
+        <div>
+          <h1>TableTech <span class="badge">Sistemas v1.0</span></h1>
+          <p>Gestión Centralizada de Reservas y Control de Mesas</p>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html" class="nav-link">📅 Calendario y Ocupación</a>
+        <a href="nueva-reserva.html" class="nav-link">➕ Nueva Reserva</a>
+        <a href="mapa-mesas.html" class="nav-link active">🪑 Mapa de Mesas</a>
+        <div class="user-info" id="user-display"></div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h2 class="card-title">🪑 Distribución y Estado de Mesas</h2>
+          <p class="card-subtitle">Visualización en tiempo real del mapa general del salón</p>
+        </div>
+      </div>
+
+      <div id="tables-map-container" class="tables-map-grid"></div>
+    </div>
+  </main>
+
+  <footer>
+    Escuela de Tecnología - Proyecto Web de Gestión de Reservas | HTML, CSS y JS
+  </footer>
+
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.getElementById('tables-map-container');
+      const today = new Date().toISOString().split('T')[0];
+      const reservations = getReservations().filter(r => r.date === today && r.status !== 'cancelada');
+
+      TABLES.forEach(table => {
+        const tableRes = reservations.filter(r => r.tableNumber === table.id);
+        const isOccupied = tableRes.length > 0;
+
+        const card = document.createElement('div');
+        card.className = `map-card ${isOccupied ? 'occupied' : 'available'}`;
+        card.innerHTML = `
+          <div>
+            <div style="display:flex; justify-content:space-between;">
+              <h3 style="font-weight:bold;">Mesa ${table.id}</h3>
+              <span class="status-badge ${isOccupied ? 'slot-pendiente' : 'slot-confirmada'}">${isOccupied ? 'Ocupada' : 'Disponible'}</span>
+            </div>
+            <p style="font-size:0.75rem; color:#6b7280;">${table.zone} - Cap. ${table.capacity}p</p>
+          </div>
+          <div>
+            ${tableRes.map(r => `<div style="font-size:0.7rem; font-weight:bold; margin-bottom: 0.2rem;">🕒 ${r.time} -${r.customerName}</div>`).join('')}
+          </div>
+          <button class="map-card-btn" onclick="window.location.href='nueva-reserva.html?table=${table.id}'">+ Agendar en Mesa ${table.id}</button>
+        `;
+        container.appendChild(card);
+      });
+    });
+  </script>
+</body>
+</html>
